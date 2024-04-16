@@ -1,13 +1,13 @@
 import os
 os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
-import json
 from typing import Any
 
 from Window import Window
 from Logger import Logger
 from Enum import Enum
 from ModLoader import ModLoader
+from JsonLoader import JsonLoader
 
 
 def main() -> None:
@@ -21,11 +21,7 @@ def main() -> None:
 
     logger.log("Pygame Initialized!")
 
-    config_file: Any = open("config.json")
-
-    config: dict[str, Any] = json.load(config_file)
-
-    config_file.close()
+    config: dict[str, Any] = JsonLoader.load("config.json")
 
     modLoader: ModLoader = ModLoader(config["mod_directory"])
 

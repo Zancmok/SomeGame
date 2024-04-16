@@ -14,16 +14,12 @@ class ModLoader:
             [Enum.ConsoleColor.Blue, Enum.ConsoleColor.NotBold, Enum.ConsoleColor.NotItalic, Enum.ConsoleColor.NotUnderline]
         )
 
-        self.jsonLoader: JsonLoader = JsonLoader()
-
         self.logger.log("Mod Loader Started!")
 
         for mod in listdir(mod_directory_path):
             mod_path: str = f"{mod_directory_path}\\{mod}"
 
-            data: dict = self.jsonLoader.load(f"{mod_path}\\info.json")
-
-            print(data)
+            data: dict = JsonLoader.load(f"{mod_path}\\info.json")
 
             self.load_mod(mod_path)
 
