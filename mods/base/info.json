@@ -1,0 +1,10 @@
+{
+  "name": "base",
+  "description": "The base mod, providing all the gameplay.",
+  "author": [
+    "zancmok"
+  ],
+  "dependencies": [
+    "zancmok-lib"
+  ]
+}

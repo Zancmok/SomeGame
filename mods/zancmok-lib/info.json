@@ -1,0 +1,8 @@
+{
+  "name": "Zancmok Library",
+  "description": "The library with all basic utility the base mod needs.",
+  "author": [
+    "zancmok"
+  ],
+  "dependencies": []
+}
