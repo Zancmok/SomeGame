@@ -1,4 +1,5 @@
 type Point2d = tuple[int, int]
+type ModId = str
 
 
 class ConsoleColor:

@@ -1,7 +1,7 @@
 from typing import Any, Self
 
 
-class TreeNode:
+class BinaryNode:
     def __init__(self, value: Any) -> None:
         self.value: Any = value
         self.left: Self | None = None
@@ -9,7 +9,7 @@ class TreeNode:
         self.parent: Self | None = None
 
     def __str__(self) -> str:
-        return f"TreeNode<{self.value}>"
+        return f"BinaryNode<{self.value}>"
 
     def __repr__(self) -> str:
-        return f"TreeNode<{self.value}:[{self.left}|{self.right}]>"
+        return f"BinaryNode<{self.value}:[{self.left}|{self.right}]>"

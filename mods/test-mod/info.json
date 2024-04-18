@@ -1,0 +1,11 @@
+{
+  "mod_id": "test-mod",
+  "name": "Test Mod",
+  "description": "A testing mod.",
+  "author": [
+    "zancmok"
+  ],
+  "dependencies": [
+    "base"
+  ]
+}
