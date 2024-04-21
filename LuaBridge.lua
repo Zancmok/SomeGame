@@ -1,4 +1,11 @@
-function get_json(path)
+function decode_json(path)
+    local out = {}
+
+
+end
+
+function encode_json(tbl)
+    local out = ""
 
 end
 
@@ -60,14 +67,8 @@ local function main(...)
     data = {}
     events = {}
 
-    for i, v in pairs(...) do
-        if i == 0 or i == -1 then
-            goto continue
-        end
-
-        --print(v)
-
-        ::continue::
+    for i=2, #(...), 1 do
+        require((...)[1] + "\\" + (...)[i] + "\\data")
     end
 end
 
