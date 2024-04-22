@@ -1,0 +1,17 @@
+body {
+    background-color: black;
+    color: white;
+}
+
+.title {
+    text-align: center;
+}
+
+.table {
+    border: 3px solid #808080;
+    width: 175px;
+}
+
+input {
+    width: 115px;
+}
