@@ -1,4 +1,4 @@
-from os import listdir
+from os import listdir, system
 from copy import deepcopy
 from typing import Any
 
@@ -28,44 +28,38 @@ class ModLoader:
 
             dependencies.append((data["mod_id"], data["dependencies"]))
 
-            self.load_mod(mod_path)
-
         self.logger.log("Generating Mod Loading Queue!")
         mod_queue: list[ModId] = self.generate_dependency_tree(dependencies)
         self.logger.log("Mod Queue Generated!")
 
-        for mod in mod_queue:
-            self.load_mod(f"{self.mod_directory_path}\\{mod}")
+        luaBridgeInput: str = f"lua .\\LuaBridge.lua {mod_directory_path}"
 
-    def generate_dependency_tree(self, mods: list[tuple[ModId, list[ModId]]]) -> list[ModId]:  # TODO: Fix the generation itself, see log for info
+        for i in mod_queue:
+            luaBridgeInput += f" {i}"
+
+        system(luaBridgeInput)
+
+    @staticmethod
+    def generate_dependency_tree(mods: list[tuple[ModId, list[ModId]]]) -> list[ModId]:  # TODO: Fix the generation itself, see log for info
         out: list[str] = []
 
         def inner(_mods: list[tuple[ModId, list[ModId]]], _out: list[ModId]) -> None:
-            if not _mods:
-                return
+            while _mods:
 
-            popables: list[int] = []
+                popables: list[int] = []
 
-            for i, mod in enumerate(_mods):
-                if len(mod[1]) == 0:
-                    popables.append(i)
+                for i, mod in enumerate(_mods):
+                    if not mod[1]:
+                        _out.append(mod[0])
+                        popables.append(i)
+                        for _mod in _mods:
+                            for j, inner_mod in enumerate(_mod[1]):
+                                if inner_mod == mod[0]:
+                                    _mod[1].pop(j)
 
-                for inner_mod in _mods:
-                    for j, dependency in enumerate(inner_mod[1]):
-                        if dependency == mod[0]:
-                            inner_mod[1].pop(j)
-
-            for i in popables[::-1]:
-                out.append(_mods[i][0])
-                _mods.pop(i)
-
-            inner(_mods, out)
+                for i in popables[::-1]:
+                    _mods.pop(i)
 
         inner(deepcopy(mods), out)
 
         return out
-
-    def load_mod(self, mod_path: str) -> None:
-        self.logger.log(f"Loading Mod: {mod_path}!")
-
-        data: dict[str, Any] = JsonLoader.load(f"{mod_path}\\info.json")

@@ -1,12 +1,13 @@
-function decode_json(path)
+function decode_json(str)
     local out = {}
 
-
+    print(str)
 end
 
 function encode_json(tbl)
     local out = ""
 
+    print(tbl)
 end
 
 function print_table(tbl)
@@ -68,6 +69,7 @@ local function main(...)
     events = {}
 
     for i=2, #(...), 1 do
+        print("[LuaBridge]: Loading mod '" + tostring((...)[i]) + "'")
         require((...)[1] + "\\" + (...)[i] + "\\data")
     end
 end
