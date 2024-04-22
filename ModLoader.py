@@ -37,10 +37,12 @@ class ModLoader:
         for i in mod_queue:
             luaBridgeInput += f" {i}"
 
+        self.logger.log("Starting LuaBridge!")
         system(luaBridgeInput)
+        self.logger.log("ModLoader Finished!")
 
     @staticmethod
-    def generate_dependency_tree(mods: list[tuple[ModId, list[ModId]]]) -> list[ModId]:  # TODO: Fix the generation itself, see log for info
+    def generate_dependency_tree(mods: list[tuple[ModId, list[ModId]]]) -> list[ModId]:
         out: list[str] = []
 
         def inner(_mods: list[tuple[ModId, list[ModId]]], _out: list[ModId]) -> None:
