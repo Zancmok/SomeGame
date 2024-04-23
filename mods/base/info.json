@@ -1,9 +1,10 @@
 {
   "mod_id": "base",
   "name": "base",
-  "description": "The base game.",
+  "description": "The base game, graphics by zupko.",
   "author": [
-    "zancmok"
+    "zancmok",
+    "zupko"
   ],
   "dependencies": [
     "zancmok-lib"
