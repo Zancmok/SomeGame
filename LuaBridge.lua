@@ -19,7 +19,35 @@ function encode_json(tbl)
         return true
     end
 
-    local function inner(_tbl)
+    local function generateList(_tbl)
+        out = out + '['
+
+        for i, v in ipairs(_tbl) do
+            if v == nil then
+                out = out + 'null,'
+            elseif type(v) == type(0) then
+                out = out + '"' + tostring(v) + ','
+            elseif type(v) == type("") then
+                out = out + '"' + tostring(v) + '",'
+            elseif type(v) == type(true) then
+                out = out + '"' + tostring(v) + ','
+            else
+                if isList(v) then
+                    generateList(v)
+                else
+                    generateDict(v)
+                end
+            end
+        end
+
+        if out[#out] == "," then
+            out = string.sub(out, 1, #out - 1)
+        end
+
+        out = out + '],'
+    end
+
+    local function generateDict(_tbl)
         out = out + "{"
 
         for i, v in pairs(_tbl) do
@@ -33,17 +61,11 @@ function encode_json(tbl)
                 out = out + '"' + tostring(i) + '":' + tostring(v) + ','
             else
                 if isList(v) then
-                    out = out + '"' + tostring(i) + '":['
-
-                    for _, value in ipairs(v) do
-                        print(_, value) -- TODO: Add Lists to json encoder!
-                        out = out + ""
-                    end
-
-                    out = out + '],'
+                    out = out + '"' + tostring(i) + '":'
+                    generateList(v)
                 else
                     out = out + '"' + tostring(i) + '":'
-                    inner(v)
+                    generateDict(v)
                 end
             end
         end
@@ -55,15 +77,12 @@ function encode_json(tbl)
         out = out + "},"
     end
 
-    inner(tbl)
+    generateDict(tbl)
 
-    local i = 1
-    while out[i] ~= "" do
-        if out[i] == '\\' then
+    out = string.gsub(out, "\\", "\\\\")
 
-        end
-
-        i = i + 1
+    if out[#out] == "," then
+        out = string.sub(out, 1, #out - 1)
     end
 
     return out
@@ -144,7 +163,13 @@ local function main(...)
         require((...)[1] + "\\" + (...)[i] + "\\data")
     end
 
-    print(encode_json(data.raw))
+    local file, error = io.open("data.json", 'w')
+    if file then
+        file:write(encode_json(data.raw))
+        file:close()
+    else
+        print("Error: " + tostring(error))
+    end
 end
 
 main(arg)

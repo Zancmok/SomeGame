@@ -1,3 +1,5 @@
-require("mods.base.prototype.tile.grass_1")
-require("mods.base.prototype.tile_group.grass")
-require("mods.base.prototype.tile_type.ground")
+require("mods.base.prototype.Tile.grass")
+require("mods.base.prototype.TileGroup.ground")
+require("mods.base.prototype.TileGroup.mountain")
+require("mods.base.prototype.TileGroup.void")
+require("mods.base.prototype.TileGroup.water")

@@ -1,6 +1,7 @@
 from os import listdir, system
 from copy import deepcopy
 from typing import Any
+from icecream import ic
 
 from Logger import Logger
 from Enum import Enum, ModId
@@ -40,6 +41,10 @@ class ModLoader:
         self.logger.log("Starting LuaBridge!")
         system(luaBridgeInput)
         self.logger.log("ModLoader Finished!")
+
+        data: dict[str, Any] = JsonLoader.load("data.json")
+
+        ic(data)
 
     @staticmethod
     def generate_dependency_tree(mods: list[tuple[ModId, list[ModId]]]) -> list[ModId]:

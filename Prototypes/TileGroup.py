@@ -1,8 +1,9 @@
 from _types import *
 
 from Base import Base
-from TileType import TileType
 
 
 class TileGroup(Base):
-    tile_type: pID[TileType]  # the type of the tile, the tile group is(land, water...)
+    walkable: bool  # if you can walk on tiles
+    swimable: bool  # if you can swim on tiles
+    passable: bool  # if you can fly over tiles
