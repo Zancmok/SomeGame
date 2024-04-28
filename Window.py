@@ -3,6 +3,8 @@ import pygame
 from Enum import Point2d, Enum
 from Logger import Logger
 from Renderer import Renderer
+from Layer import Layer
+from Tile import Tile
 
 
 class Window:
@@ -24,6 +26,18 @@ class Window:
         pygame.display.set_caption(title)
 
         self.renderer: Renderer = Renderer()
+
+        tileLayer: Layer = Layer(0, self.screen)
+
+        tileGroup: pygame.sprite.Group = pygame.sprite.Group()
+
+        tileLayer.add_group(tileGroup)
+
+        tileGroup.add(
+            Tile("grass", (0, 0))
+        )
+
+        self.renderer.add_layer(tileLayer)
 
         self.running: bool = True
 

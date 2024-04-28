@@ -122,6 +122,20 @@ function print_table(tbl)
     print(inner(tbl, 1))
 end
 
+local function prepareData(tbl)
+    for i, v in pairs(tbl) do
+        if type(v) == type({}) then
+            prepareData(v)
+        end
+
+        if type(v) == type("") then
+            if string.sub(v, #v - 3, #v) == ".bmp" then
+                tbl[i] = "mods\\" + tbl[i]
+            end
+        end
+    end
+end
+
 local function main(...)
     local string_mt = getmetatable("")
 
@@ -162,6 +176,8 @@ local function main(...)
         print("[LuaBridge]: Loading mod '" + tostring((...)[i]) + "'")
         require((...)[1] + "\\" + (...)[i] + "\\data")
     end
+
+    prepareData(data.raw)
 
     local file, error = io.open("data.json", 'w')
     if file then

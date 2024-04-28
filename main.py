@@ -3,7 +3,6 @@ os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
 import pygame
 from typing import Any
 
-from Window import Window
 from Logger import Logger
 from Enum import Enum
 from ModLoader import ModLoader
@@ -26,6 +25,8 @@ def main() -> None:
     modLoader: ModLoader = ModLoader(config["mod_directory"])
 
     logger.log("Started Creating Window!")
+
+    from Window import Window
 
     window: Window = Window(config["size"], config["title"])
 
