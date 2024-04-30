@@ -20,3 +20,6 @@ class Renderer:
     def add_layer(self, layer: Layer) -> None:
         self.layers.append(layer)
 
+    def add_layers(self, layers: list[Layer]) -> None:
+        for layer in layers:
+            self.add_layer(layer)

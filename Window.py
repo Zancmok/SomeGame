@@ -3,8 +3,7 @@ import pygame
 from Enum import Point2d, Enum
 from Logger import Logger
 from Renderer import Renderer
-from Layer import Layer
-from Tile import Tile
+from Game import Game
 
 
 class Window:
@@ -27,24 +26,18 @@ class Window:
 
         self.renderer: Renderer = Renderer()
 
-        tileLayer: Layer = Layer(0, self.screen)
-
-        tileGroup: pygame.sprite.Group = pygame.sprite.Group()
-
-        tileLayer.add_group(tileGroup)
-
-        tileGroup.add(
-            Tile("grass", (0, 0))
-        )
-
-        self.renderer.add_layer(tileLayer)
+        self.game: Game = Game(self.renderer, self.screen)
 
         self.running: bool = True
 
         while self.running:
-            for event in pygame.event.get():
+            events: list[pygame.event.Event] = pygame.event.get()
+
+            for event in events:
                 if event.type == pygame.QUIT:
                     self.running = False
+
+            self.game.tick(events)
 
             self.renderer.render()
 
