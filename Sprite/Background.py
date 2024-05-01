@@ -3,7 +3,7 @@ from Enum import Point2d
 
 
 class Background(pygame.sprite.Sprite):
-    def __init__(self, path: str, size: Point2d):
+    def __init__(self, path: str, size: Point2d) -> None:
         super().__init__()
 
         self.image: pygame.Surface = pygame.transform.scale(pygame.image.load(path), size)

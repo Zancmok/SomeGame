@@ -1,5 +1,6 @@
-type Point2d = tuple[int, int]
-type ModId = str
+type Point2d = tuple[int, int]  # a set of 2 scalars, representing sizes, positions...
+type PointRatio2d = tuple[float, float]  # a set of 2 floats, both having value from 0 to 1
+type ModId = str  # the identity/name of a mod
 
 
 class ConsoleColor:
