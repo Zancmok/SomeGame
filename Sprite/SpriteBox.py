@@ -11,8 +11,6 @@ class SpriteBox(pygame.sprite.Sprite):
 
         config: dict[str, Any] = JsonLoader.load("config.json")
 
-        print((int(size[0] * config["size"][0]), int(size[1] * config["size"][1])))
-
         self.image: pygame.Surface
 
         if type(size[0]) == float:
