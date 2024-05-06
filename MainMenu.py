@@ -7,6 +7,7 @@ from Layer import Layer
 from JsonLoader import JsonLoader
 from Sprite.Background import Background
 from Sprite.SpriteBox import SpriteBox
+from Sprite.TextBox import TextBox
 
 
 class MainMenu(Menu):
@@ -34,6 +35,14 @@ class MainMenu(Menu):
         menuBackLayerGroup.add(menuBack) # noqa
 
         self.menuBackLayer.add_group(menuBackLayerGroup)
+
+        menFrontLayerGroup: pygame.sprite.Group = pygame.sprite.Group()
+
+        title: TextBox = TextBox((.3, .05), (.5, .15), pygame.color.Color(255, 255, 255), "SomeGame[Test]")
+
+        menFrontLayerGroup.add(title)  # noqa
+
+        self.menuFrontLayer.add_group(menFrontLayerGroup)
 
         renderer.add_layers([self.backgroundLayer, self.menuBackLayer, self.menuFrontLayer])
 

@@ -30,5 +30,3 @@ class SpriteBox(pygame.sprite.Sprite):
             raise TypeError
 
         self.image.fill(color)
-
-

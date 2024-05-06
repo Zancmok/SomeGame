@@ -17,6 +17,7 @@ def main() -> None:
     logger.log("Started!")
 
     pygame.init()
+    pygame.font.init()
 
     logger.log("Pygame Initialized!")
 
